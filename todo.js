@@ -1,218 +1,106 @@
-// const rl = require("readline").createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
-
-// const todos = [
-//   {
-//     name: "자바스크립트 공부하기",
-//     tags: ["programming", "javascript"],
-//     status: "todo",
-//     id: 1,
-//   },
-//   {
-//     name: " 그림 그리기",
-//     tags: ["picture", "favorite"],
-//     status: "doing",
-//     id: 2,
-//   },
-// ];
-// let flag = 1;
-
-// const findTodo = () => {
-//   let rev = todos.filter((value) => value["status"] === "todo");
-//   return rev;
-// };
-
-// const findDoing = () => {
-//   let rev = todos.filter((value) => value["status"] === "doing");
-//   return rev;
-// };
-
-// const findDone = () => {
-//   let rev = todos.filter((value) => value["status"] === "done");
-//   return rev;
-// };
-
-// const findDupId = (id) => {
-//   let rev = todos.filter((value) => value["id"] === id);
-//   return rev.length === 0 ? true : false;
-// };
-
-// const recursiveReadline = () => {
-//   rl.setPrompt("명령하세요 : ");
-//   rl.prompt();
-//   let line;
-//   rl.on("line", (input) => {
-//     line = input;
-
-//     const cmd = line.split("$")[0];
-
-//     if (cmd === "show") {
-//       const type = line.split("$")[1];
-//       if (type === "all") {
-//         console.log(
-//           `현재 상태 : todo: ${findTodo().length}개, doing: ${
-//             findDoing().length
-//           }개, done: ${findDone().length}개`
-//         );
-//       } else if (type === "todo") {
-//         console.log(`todo리스트 : 총${findTodo().length}건 :`);
-//         findTodo().forEach((value) => {
-//           console.log(`'${value.name}, ${value.id}번'`);
-//         });
-//       } else if (type === "doing") {
-//         console.log(`doing리스트 : 총${findDoing().length}건 :`);
-//         findDoing().forEach((value) => {
-//           console.log(`'${value.name}, ${value.id}번'`);
-//         });
-//       } else if (type === "done") {
-//         console.log(`done리스트 : 총${findDone().length}건 :`);
-//         findDone().forEach((value) => {
-//           console.log(`'${value.name}, ${value.id}번'`);
-//         });
-//       }
-//     } else if (cmd === "add") {
-//       let name = line.split("$")[1];
-//       let tag = line.split("$")[2];
-//       let newId = Math.floor(Math.random() * (100000000 - 1) + 1);
-//       console.log(newId);
-//       while (!findDupId(newId)) {
-//         console.log(newId);
-//         newId = Math.floor(Math.random() * (100000000 - 1) + 1);
-//       }
-//       let obj = {
-//         name: name,
-//         tags: tag,
-//         status: "todo",
-//         id: 0,
-//       };
-//       todos.push(obj);
-//     } else if (cmd === "delete") {
-//     } else if (cmd === "update") {
-//     } else if (cmd === "end") {
-//       return false;
-//     }
-//     return true;
-
-//     rl.close();
-//   });
-//   rl.on("close", () => {
-//     // 입력이 끝난 후 실행할 코드
-//     process.exit();
-//   });
-// };
-
-// let input;
-
-// while (flag) {
-//   recursiveReadline() ? (flag = 1) : (flag = 0);
-// }
+const todos = require("./todosList.js");
 
 const rl = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const todos = [
-  {
-    name: "자바스크립트 공부하기",
-    tags: ["programming", "javascript"],
-    status: "todo",
-    id: 1,
-  },
-  {
-    name: "그림 그리기",
-    tags: ["picture", "favorite"],
-    status: "doing",
-    id: 2,
-  },
-];
-let flag = true;
-
-const findTodo = () => {
-  let rev = todos.filter((value) => value["status"] === "todo");
-  return rev;
+const printStatus = () => {
+  console.log(
+    `현재 상태: todo: ${findStatus("todo").length}개, doing: ${
+      findStatus("doing").length
+    }개, done: ${findStatus("done").length}개`
+  );
 };
 
-const findDoing = () => {
-  let rev = todos.filter((value) => value["status"] === "doing");
-  return rev;
-};
-
-const findDone = () => {
-  let rev = todos.filter((value) => value["status"] === "done");
-  return rev;
+const findStatus = (type) => {
+  return todos.filter((value) => value["status"] === type);
 };
 
 const findDupId = (id) => {
-  let rev = todos.filter((value) => value["id"] === id);
-  return rev.length === 0 ? true : false;
+  let dupIds = todos.filter((value) => value["id"] === id);
+  return dupIds.length === 0;
 };
 
-const recursiveReadline = () => {
-  rl.setPrompt("명령하세요 : ");
-  rl.prompt();
-
-  rl.on("line", (line) => {
-    const cmd = line.split("$")[0];
-
-    if (cmd === "show") {
-      const type = line.split("$")[1];
-      if (type === "all") {
-        console.log(
-          `현재 상태: todo: ${findTodo().length}개, doing: ${
-            findDoing().length
-          }개, done: ${findDone().length}개`
-        );
-      } else if (type === "todo") {
-        console.log(`todo 리스트: 총 ${findTodo().length}건 :`);
-        findTodo().forEach((value) => {
-          console.log(`'${value.name}, ${value.id}번'`);
-        });
-      } else if (type === "doing") {
-        console.log(`doing 리스트: 총 ${findDoing().length}건 :`);
-        findDoing().forEach((value) => {
-          console.log(`'${value.name}, ${value.id}번'`);
-        });
-      } else if (type === "done") {
-        console.log(`done 리스트: 총 ${findDone().length}건 :`);
-        findDone().forEach((value) => {
-          console.log(`'${value.name}, ${value.id}번'`);
-        });
-      }
-    } else if (cmd === "add") {
-      let name = line.split("$")[1];
-      let tag = line.split("$")[2];
-      let newId = Math.floor(Math.random() * (100000000 - 1) + 1);
-      console.log(newId);
-      while (!findDupId(newId)) {
-        console.log(newId);
-        newId = Math.floor(Math.random() * (100000000 - 1) + 1);
-      }
-      let obj = {
-        name: name,
-        tags: tag,
-        status: "todo",
-        id: 0,
-      };
-      todos.push(obj);
-    } else if (cmd === "delete") {
-      // TODO: Implement delete functionality
-    } else if (cmd === "update") {
-      // TODO: Implement update functionality
-    } else if (cmd === "end") {
-      rl.close();
-      return;
+const makeId = () => {
+  return Math.floor(Math.random() * (100_000_000 - 1) + 1);
+};
+const showItems = (type) => {
+  if (type === "all") {
+    printStatus();
+  } else {
+    const list = findStatus(type);
+    console.log(`${type} 리스트: 총 ${list.length}건 :`);
+    list.forEach((value) => {
+      console.log(`'${value.name}, ${value.id}번'`);
+    });
+  }
+};
+const addItems = (name, tags) => {
+  let newId = makeId();
+  while (!findDupId(newId)) {
+    newId = makeId();
+  }
+  let obj = {
+    name: name,
+    tags: tags,
+    status: "todo",
+    id: newId,
+  };
+  todos.push(obj);
+  console.log(`${name}개가 추가됐습니다.(id : ${newId})`);
+  printStatus();
+};
+const deleteItems = (id) => {
+  todos.forEach((value, index) => {
+    if (value["id"] === Number(id)) {
+      todos.splice(index, 1);
+      console.log(`${value.name} ${value.status}가 목록에서 삭제됐습니다.`);
+      printStatus();
     }
-
-    recursiveReadline();
   });
-
-  rl.on("close", () => {
-    // 입력이 끝난 후 실행할 코드
-    process.exit();
+};
+const updateItems = (id, status) => {
+  todos.forEach((value) => {
+    if (value["id"] === Number(id)) {
+      value["status"] = status;
+      console.log(`${value.name} ${value.status}으로 상태가 변경됐습니다.`);
+      printStatus();
+    }
   });
 };
 
-recursiveReadline();
+const processCommand = (line) => {
+  const cmd = line.split("$")[0];
+  if (cmd === "show") {
+    const type = line.split("$")[1];
+    showItems(type);
+  } else if (cmd === "add") {
+    const name = line.split("$")[1];
+    const tags = line.split("$")[2];
+    addItems(name, tags);
+  } else if (cmd === "delete") {
+    const id = line.split("$")[1];
+    deleteItems(id);
+  } else if (cmd === "update") {
+    const id = line.split("$")[1];
+    const status = line.split("$")[2];
+    updateItems(id, status);
+  } else if (cmd === "end") {
+    rl.close();
+    return;
+  }
+  rl.prompt();
+};
+
+rl.setPrompt("명령하세요 : ");
+rl.prompt();
+
+rl.on("line", (line) => {
+  processCommand(line);
+});
+
+rl.on("close", () => {
+  // 입력이 끝난 후 실행할 코드
+  process.exit();
+});

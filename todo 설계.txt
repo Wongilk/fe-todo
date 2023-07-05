@@ -19,3 +19,9 @@ id : random생성 (100000000까지) 있으면 다시 생성
 while내부에 rl.~~~ 
 처리함수의 리턴값으로 end flag값 
 값에 따라 process.exit()
+
+
+"[style] : modify parameter
+
+
+Co-authored-by: kimdaye77 <kimdaye77@naver.com>"

@@ -53,7 +53,7 @@ const addItems = (_name, _tags) => {
     id: newId,
   };
   todos.push(obj);
-  console.log(`${name}개가 추가됐습니다.(id : ${newId})`);
+  console.log(`${_name} 1개가 추가됐습니다.(id : ${newId})`);
   printStatus();
 };
 

@@ -18,8 +18,8 @@ const findStatus = (type) => {
   return todos.filter((value) => value["status"] === type);
 };
 
-const findDupId = (id) => {
-  const dupIds = todos.filter((value) => value["id"] === id);
+const findDupId = (_id) => {
+  const dupIds = todos.filter((value) => value["id"] === _id);
   return dupIds.length === 0;
 };
 
@@ -41,14 +41,14 @@ const showItems = (type) => {
   }
 };
 
-const addItems = (name, tags) => {
+const addItems = (_name, _tags) => {
   let newId = makeId();
   while (!findDupId(newId)) {
     newId = makeId();
   }
   const obj = {
-    name: name,
-    tags: tags,
+    name: _name,
+    tags: _tags,
     status: "todo",
     id: newId,
   };
@@ -57,10 +57,10 @@ const addItems = (name, tags) => {
   printStatus();
 };
 
-const deleteItems = (id) => {
+const deleteItems = (_id) => {
   let findId = false;
   todos.forEach((value, index) => {
-    if (value["id"] === Number(id)) {
+    if (value["id"] === Number(_id)) {
       todos.splice(index, 1);
       console.log(`${value.name} ${value.status}가 목록에서 삭제됐습니다.`);
       printStatus();
@@ -89,9 +89,9 @@ const updateItems = (_id, _status) => {
 };
 
 //tag 올바른지 check
-const checkTags = (tags) => {
+const checkTags = (_tags) => {
   const regex = /^\[.*\]$/;
-  return tags.match(regex);
+  return _tags.match(regex);
 };
 const processCommand = (line) => {
   const cmd = line.split("$");

@@ -12,4 +12,5 @@ const todos = [
     id: 2,
   },
 ];
-module.exports = todos;
+const status = ["todo", "doing", "done"];
+module.exports = { todos, status };

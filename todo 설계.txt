@@ -1,0 +1,21 @@
+todos : 객체 배열,
+	
+무한루프 명령하세요 
+종료조건 (end)
+$단위로 잘라서 어떤 명령어인지 - 유효한 명령어인지 check
+조건문 (if)
+
+- 예외처리 -
+show > all, todo,doing,done이외에 오류 
+add > 오타, 태그 확인
+delete > 존재 유무 
+update > 존재 유무, 오타, doing todo done이외에 입력값이면 오류
+
+
+id : random생성 (100000000까지) 있으면 다시 생성
+추출한 id값 number로
+
+
+while내부에 rl.~~~ 
+처리함수의 리턴값으로 end flag값 
+값에 따라 process.exit()
